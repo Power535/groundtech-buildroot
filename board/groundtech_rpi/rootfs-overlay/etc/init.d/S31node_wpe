@@ -6,7 +6,7 @@ case "$1" in
     # Wait for server to open WPE
     while ! `netstat -tln 2>/dev/null | grep -q  8080`;
     do
-      sleep 0.4;
+      sleep 0.3;
     done
     echo -n "Starting WPE: "
     /usr/bin/wpe --loop "http://localhost:8080" &> /dev/null &

@@ -2,7 +2,7 @@
 
 start() {
 	# Startup scripts if needed
-	nohup omxplayer -b /var/node/intro.mp4 --aspect-mode stretch &
+	nohup omxplayer -b /var/node/intro.mp4 --aspect-mode stretch >& /dev/null &
 }
 
 stop() {

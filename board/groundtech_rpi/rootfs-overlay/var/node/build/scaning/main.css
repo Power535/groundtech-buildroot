@@ -1,0 +1,129 @@
+canvas {
+  display: block;
+}
+
+.container {
+  position: absolute;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-46%, -50%);
+  line-height: 79px;
+  word-spacing: 61px;
+  font-size: 23px !important;
+  font-weight: 600;
+  display: none;
+}
+
+.panel {
+  width: 100px;
+  height: 100vh;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background: black;
+  border-left: 2px solid white;
+}
+
+.panel .prop {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  background: rgb(199, 199, 199);
+  border-radius: 10px;
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 3px 0px 3px 0px;
+  overflow: hidden;
+}
+
+.panel .prop .s-value {
+  display: block;
+  font-size: 15px;
+  border-top: 1px solid black;
+  padding-top: 3px;
+  background: white;
+}
+
+#save-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 150px;
+  background: rgb(211, 211, 211);
+  z-index: 10;
+  border-radius: 15px;
+  border: 2px solid rgb(151, 151, 151);
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  width: 60%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.button {
+  width: 70px;
+  border: 2px solid black;
+  text-align: center;
+  padding: 5px 0px 3px 0px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.popup-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  background: #000;
+  z-index: 8;
+  opacity: 0.7;
+}
+
+#save-group {
+  display: none;
+}
+
+.yes.selected {
+  background: green;
+  color: #fff;
+}
+
+.no.selected {
+  background: rgb(224, 41, 17);
+  color: #fff;
+}
+
+.column-group {
+  display: none;
+}
+
+.column-popup {
+  width: 320px;
+  height: 120px;
+  background: rgb(211, 211, 211);
+  border: 2px solid black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 15px;
+  flex-direction: column;
+}

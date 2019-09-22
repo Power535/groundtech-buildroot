@@ -1,0 +1,97 @@
+config BR2_PACKAGE_WPEFRAMEWORK
+	bool "wpeframework"
+	help
+	  WPE Framework
+
+if BR2_PACKAGE_WPEFRAMEWORK
+
+menu "Options"
+
+config BR2_PACKAGE_WPEFRAMEWORK_PORT
+	string "port"
+	default "80"
+
+config BR2_PACKAGE_WPEFRAMEWORK_BIND
+	string "bind"
+	default "0.0.0.0"
+
+config BR2_PACKAGE_WPEFRAMEWORK_INTERFACE
+	string "interface"
+	default ""
+
+config BR2_PACKAGE_WPEFRAMEWORK_IDLE_TIME
+	string "idle-time"
+	default "180"
+
+config BR2_PACKAGE_WPEFRAMEWORK_PERSISTENT_PATH
+	string "persistent path"
+	default "/root"
+
+config BR2_PACKAGE_WPEFRAMEWORK_DATA_PATH
+	string "data path"
+	default "/usr/share/WPEFramework"
+
+config BR2_PACKAGE_WPEFRAMEWORK_SYSTEM_PATH
+	string "system path"
+	default "/usr/lib/wpeframework/plugins"
+
+config BR2_PACKAGE_WPEFRAMEWORK_PROXYSTUB_PATH
+	string "proxystub path"
+	default "/usr/lib/wpeframework/proxystubs"
+
+config BR2_PACKAGE_WPEFRAMEWORK_OOM_ADJUST
+	string "oom-adjust"
+	default ""
+
+config BR2_PACKAGE_WPEFRAMEWORK_SYSTEM_PREFIX
+	string "system prefix"
+	default ""
+
+source "package/wpe/wpeframework-devtools/Config.in"
+
+endmenu
+
+menu "Extensions"
+
+config BR2_PACKAGE_WPEFRAMEWORK_VIRTUALINPUT
+	bool "VirtualInput"
+	help
+	  If the dynamic uinput system can not be used for security reasons, this
+	  allows for relaying keys to plugins
+
+config BR2_PACKAGE_WPEFRAMEWORK_CDM
+	bool "CDM"
+	help
+	  CDM client support compatible with OpenCDM
+
+config BR2_PACKAGE_WPEFRAMEWORK_PROVISIONPROXY
+	bool "ProvisionProxy"
+	select BR2_PACKAGE_LIBPROVISION
+	help
+	  Allows provisioning of modules from the cloud.
+
+ config BR2_PACKAGE_WPEFRAMEWORK_BROADCAST
+	bool "Broadcast"
+        default n
+	help
+	  Abstraction on QAM tuner and PSI/SI parser functionality.
+          
+endmenu
+
+menu "Plugins"
+source "package/wpe/wpeframework-plugins/Config.in"
+source "package/wpe/wpeframework-amazon/Config.in"
+source "package/wpe/wpeframework-avnclient/Config.in"
+source "package/wpe/wpeframework-cobalt/Config.in"
+source "package/wpe/wpeframework-dialserver/Config.in"
+source "package/wpe/wpeframework-linearbroadcastplayer/Config.in"
+source "package/wpe/wpeframework-netflix/Config.in"
+source "package/wpe/wpeframework-packager/Config.in"
+source "package/wpe/wpeframework-playgiga/Config.in"
+source "package/wpe/wpeframework-provisioning/Config.in"
+source "package/wpe/wpeframework-spotify/Config.in"
+source "package/wpe/wpeframework-switchboard/Config.in"
+source "package/wpe/wpeframework-ui/Config.in"
+endmenu
+
+endif

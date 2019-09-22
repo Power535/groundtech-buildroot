@@ -1,0 +1,17 @@
+config BR2_PACKAGE_HORIZON_SDK
+	bool "horizon-sdk"
+	depends on BR2_i386
+	select BR2_PACKAGE_HAS_LIBEGL
+	select BR2_PACKAGE_HAS_LIBGLES
+	help
+	  Pre-compiled binaries for a platform
+
+if BR2_PACKAGE_HORIZON_SDK
+
+config BR2_PACKAGE_PROVIDES_LIBEGL
+	default "horizon-sdk"
+
+config BR2_PACKAGE_PROVIDES_LIBGLES
+	default "horizon-sdk"
+
+endif

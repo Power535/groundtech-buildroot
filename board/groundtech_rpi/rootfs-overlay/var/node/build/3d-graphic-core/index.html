@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Discovery 3D Scan</title>
+        <link rel="stylesheet" href="main.css">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/apple-icon-114x114-precomposed.png" />
+        <meta name="theme-color" content="#84c44e" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <script src="js/strings.js"></script>
+</head>
+
+<body id="body">
+        <div class="notifier run-animation" id="notifier">
+                3D Rotate
+        </div>
+        <img src="overlay.png" id="heatmap">
+        <div id="save-group" class="save-group">
+                <div class="save-popup" id="save-popup">
+                        <img src="./save.png" />
+                        <div class="question" id="question">Do you save this scan?</div>
+                        <div class="buttons">
+                                <div class="button yes" id="yes">Yes</div>
+                                <div class="button no selected" id="no">No</div>
+                        </div>
+                </div>
+                <div class="popup-overlay"></div>
+        </div>
+
+
+        <img src="" class="td-icon">
+        <div id="detail">
+                <div class="dirttype"> <span id="dirtType"> - </span> </div>
+                <div  id="depth-dirt-level" class="dirt-level"> <img class="icon" src="dirtlevel.svg" /> <span id="dirtlevel"> - </span>
+                </div>
+                <div id="depth-value-level" class="level"> <img class="icon" src="selected.svg" /> <span id="valuelevel"> - </span> </div>
+                <div class="depth"> <img class="icon" src="depth.svg" /> <span id="depth"> -m </span> </div>
+        </div>
+        <div class="density" id="density">
+                <div class="value"></div>
+                <div class="value"></div>
+                <div class="value"></div>
+                <div class="value"></div>
+                <div class="value"></div>
+        </div>
+        <script src="js/three.min.js"></script>
+        <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="main.css">
+  <script src="strings.js"></script>
+  <title>Document</title>
+</head>
+
+<body style="margin: 0px">
+  <div id="save-group" class="save-group">
+    <div class="save-popup" id="save-popup">
+      <img src="./logout.svg" />
+      <div class="question">Do you really want to <u>finish</u> this scan?</div>
+      <div class="buttons">
+        <div class="button yes" id="yes">YES</div>
+        <div class="button no selected" id="no">NO</div>
+      </div>
+    </div>
+    <div class="popup-overlay"></div>
+  </div>
+
+  <div id="column-group" class="column-group">
+    <div class="column-popup">
+      <div class="warning">This column is completed.</div>
+      <div class="warning">Press <b>Start</b> button when you are ready.</div>
+    </div>
+    <div class="popup-overlay"></div>
+  </div>
+
+
+  <div style="font-size: 18px; color: white" class="container"></div>
+  <div class="panel">
+    <div class="prop">
+      <span id="label_row">row</span> <span class="s-value" id="row">1</span>
+    </div>
+    <div class="prop">
+      <span id="label_column">collum </span> <span class="s-value" id="collum">1</span>
+    </div>
+    <div class="prop">
+      <span id="label_size">size</span> <span class="s-value" id="size">_x_</span>
+    </div>
+    <div class="prop">
+      <span id="label_pattern">pattern</span> <span class="s-value" id="pattern">zigzag</span>
+    </div>
+    <div class="prop">
+      <span id="label_direction">direction</span> <span class="s-value" id="direction">left</span>
+    </div>
+    <div class="prop">
+      <span id="label_mode">mode</span> <span class="s-value" id="mode">auto</span>
+    </div>
+  </div>
+  <tone-demo autoplay></tone-demo>
+
+  <script src="three.min.js"></script>
+  <script src="main.js"></script>
+  <audio id="audio" src="http://localhost:3000/beep.wav" autoplay="true"></audio>
+</body>
+
+</html>

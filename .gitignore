@@ -1,0 +1,8 @@
+local.mk
+dl/
+dl
+buildroot3-ccache
+buildroot3-ccache/
+output*/
+.config*
+..config*

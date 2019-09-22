@@ -1,0 +1,20 @@
+#! /bin/sh
+
+case "$1" in
+  start)
+    /var/node/sn/sn.sh
+    /var/node/supplicant/supplicant.sh
+    mkdir -p /var/lib/dhcp
+    touch /var/lib/dhcp/dhcpd.leases
+    rm /etc/init.d/S02oneshot_scripts
+    ;;
+  stop)
+    killall -q $NAME
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

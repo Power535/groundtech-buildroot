@@ -1,0 +1,1 @@
+echo "`top -bn2 -d 1 | head -2 | grep -E -o '[0-9]+% idle' | grep -E -o '[0-9]+' | awk '{print 100 - $1}'` `free -m | awk '/Mem:/ { printf("%3.1f%", $3/$2*100) }'` `df -h / | awk '/\// {print substr($(NF-1), 1, length($(NF-1))-1)}'` `cat /sys/class/thermal/thermal_zone0/temp | head -c 3 | sed 's/.\{2\}/&\./g'`" > /var/node/status/out

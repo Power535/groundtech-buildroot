@@ -1,0 +1,36 @@
+body {
+  margin: 0px;
+}
+
+canvas {
+  display: block;
+}
+
+.value{
+  color: rgb(0, 0, 0);
+  z-index: 100;
+  position: absolute;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  top: 170px;
+  left: 210px;
+  text-align: center;
+  /* background: red; */
+  width: 60px;
+  height: 30px;
+  font-weight: 600;
+}
+
+#overlay{
+  width: 300px;
+  position: absolute;
+  top: 70px;
+  left: 90px;
+}
+
+.pin-point-overlay{
+  position: absolute;
+  top: -20px;
+  width: 480px;
+
+}

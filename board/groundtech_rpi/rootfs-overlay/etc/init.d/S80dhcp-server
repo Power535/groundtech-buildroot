@@ -23,6 +23,8 @@ test -f /etc/dhcp/dhcpd.conf || exit 0
 
 case "$1" in
 	start)
+		test -d /var/lib/dhcp/ || mkdir -p /var/lib/dhcp/
+		test -f /var/lib/dhcp/dhcpd.leases || touch /var/lib/dhcp/dhcpd.leases
 		start-stop-daemon -S -q -x ${DAEMON} -- -q $OPTIONS $INTERFACES
 		[ $? = 0 ] && echo "OK" || echo "FAIL"
 		;;

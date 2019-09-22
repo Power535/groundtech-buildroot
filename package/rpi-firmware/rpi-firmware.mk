@@ -54,26 +54,6 @@ define RPI_FIRMWARE_CMDLINE
 endef
 endif
 
-ifeq ($(BR2_TARGET_ROOTFS_CPIO),y)
-ifeq ($(BR2_TOOLCHAIN_HEADERS_AT_LEAST_4_14),y)
-define RPI_FIRMWARE_MOUNT_ROOT
-	mkdir -p $(TARGET_DIR)/root
-	grep -q '^/dev/mmcblk1p2' $(TARGET_DIR)/etc/fstab || \
-		echo -e '/dev/mmcblk1p2 /root ext4 defaults 0 0' >> $(TARGET_DIR)/etc/fstab
-	$(INSTALL) -m 0755 -D package/rpi-firmware/S30mountroot-1 \
-		$(TARGET_DIR)/etc/init.d/S30mountroot
-endef
-else
-define RPI_FIRMWARE_MOUNT_ROOT
-	mkdir -p $(TARGET_DIR)/root
-	grep -q '^/dev/mmcblk0p2' $(TARGET_DIR)/etc/fstab || \
-		echo -e '/dev/mmcblk0p2 /root ext4 defaults 0 0' >> $(TARGET_DIR)/etc/fstab
-	$(INSTALL) -m 0755 -D package/rpi-firmware/S30mountroot-0 \
-		$(TARGET_DIR)/etc/init.d/S30mountroot
-endef
-endif
-endif
-
 define RPI_FIRMWARE_INSTALL_IMAGES_CMDS
 	$(INSTALL) -D -m 0644 $(@D)/boot/bootcode.bin $(BINARIES_DIR)/rpi-firmware/bootcode.bin
 	$(INSTALL) -D -m 0644 $(@D)/boot/start$(BR2_PACKAGE_RPI_FIRMWARE_BOOT).elf $(BINARIES_DIR)/rpi-firmware/start.elf

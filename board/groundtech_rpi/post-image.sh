@@ -31,14 +31,6 @@ hdmi_cvt 480 320 60 6 0 0 0
 hdmi_ignore_edid_audio=1
 __EOF__
 
-# Create a sample url.txt
-cat << __EOF__ > "${BINARIES_DIR}/url.txt"
-http://localhost:8080
-__EOF__
-
-# Create empty video.txt
-touch ${BINARIES_DIR}/video.txt
-
 echo "Generating SD image"
 rm -rf "${GENIMAGE_TMP}"
 

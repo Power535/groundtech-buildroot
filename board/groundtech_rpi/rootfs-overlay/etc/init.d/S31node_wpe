@@ -1,0 +1,24 @@
+#! /bin/sh
+
+case "$1" in
+  start)
+    /usr/bin/node /var/node/server.js > /dev/null 2>&1 &
+    # Wait for server to open WPE
+    while ! `netstat -tln | grep -q :8000`;
+    do
+      sleep 0.4;
+    done
+    echo -n "Starting WPE: "
+    /usr/bin/wpe --loop "http://localhost:8080" &> /dev/null &
+    ;;
+  stop)
+    killall -q $NAME
+    killall wpe WPELauncher WPEWebProcess WPENetworkProcess &> /dev/null
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

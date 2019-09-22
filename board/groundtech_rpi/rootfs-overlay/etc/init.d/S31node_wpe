@@ -4,7 +4,7 @@ case "$1" in
   start)
     /usr/bin/node /var/node/server.js > /dev/null 2>&1 &
     # Wait for server to open WPE
-    while ! `netstat -tln | grep -q :8000`;
+    while ! `netstat -tln 2>/dev/null | grep -q  8080`;
     do
       sleep 0.4;
     done

@@ -2,10 +2,8 @@
 
 case "$1" in
   start)
-    /var/node/sn/sn.sh
-    /var/node/supplicant/supplicant.sh
-    mkdir -p /var/lib/dhcp
-    touch /var/lib/dhcp/dhcpd.leases
+    /usr/bin/getserial > /var/node/build/sn
+    /usr/bin/setwpasupplicant
     rm /etc/init.d/S02oneshot_scripts
     ;;
   stop)

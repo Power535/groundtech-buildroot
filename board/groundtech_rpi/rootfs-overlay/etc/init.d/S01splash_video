@@ -1,7 +1,21 @@
 #!/bin/sh
 
 start() {
-	# Startup scripts if needed
+	# Blocker
+	if [ -e /user/share/sn ]; then
+		echo "Serial found..."
+		if [ ! `head -1 sn` = `/usr/bin/getserial` ]; then
+			echo "Wrong serial..."
+			nohup omxplayer -b --loop /var/node/intro.mp4 --aspect-mode stretch >& /dev/null &
+			while :; do sleep 2073600; done
+		fi
+	else
+		echo "Writing serial..."
+		/usr/bin/getserial > /user/share/sn
+	fi
+	echo "Passed serial check..."
+
+	# Splash video
 	nohup omxplayer -b /var/node/intro.mp4 --aspect-mode stretch >& /dev/null &
 }
 

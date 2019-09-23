@@ -88,8 +88,6 @@ endif
 define DHCP_INSTALL_INIT_SYSV
 	$(INSTALL) -m 0755 -D package/dhcp/S80dhcp-server \
 		$(TARGET_DIR)/etc/init.d/S80dhcp-server
-	$(INSTALL) -m 0755 -D package/dhcp/S80dhcp-relay \
-		$(TARGET_DIR)/etc/init.d/S80dhcp-relay
 endef
 
 ifeq ($(BR2_PACKAGE_DHCP_SERVER),y)

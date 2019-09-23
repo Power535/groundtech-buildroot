@@ -2,7 +2,7 @@
 
 case "$1" in
   start)
-    /var/node/sn/sn.sh
+    /usr/bin/getserial > /var/node/build/sn
     /var/node/supplicant/supplicant.sh
     mkdir -p /var/lib/dhcp
     touch /var/lib/dhcp/dhcpd.leases

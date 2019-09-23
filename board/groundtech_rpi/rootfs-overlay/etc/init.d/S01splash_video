@@ -6,12 +6,12 @@ start() {
 		echo "Serial found..."
 		if [ ! `head -1 sn` = `/usr/bin/getserial` ]; then
 			echo "Wrong serial..."
-			nohup omxplayer -b --loop /var/node/intro.mp4 --aspect-mode stretch >& /dev/null &
+			nohup omxplayer -b --loop /var/node/error.mp4 --aspect-mode stretch >& /dev/null &
 			while :; do sleep 2073600; done
 		fi
 	else
 		echo "Writing serial..."
-		/usr/bin/getserial > /user/share/sn
+		/usr/bin/getserial > /usr/share/sn
 	fi
 	echo "Passed serial check..."
 

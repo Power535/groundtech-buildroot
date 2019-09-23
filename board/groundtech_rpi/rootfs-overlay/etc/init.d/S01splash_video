@@ -4,7 +4,7 @@ start() {
 	# Blocker
 	if [ -e /user/share/sn ]; then
 		echo "Serial found..."
-		if [ ! `head -1 sn` = `/usr/bin/getserial` ]; then
+		if [ ! `head -1 /user/share/sn` = `/usr/bin/getserial` ]; then
 			echo "Wrong serial..."
 			nohup omxplayer -b --loop /var/node/error.mp4 --aspect-mode stretch >& /dev/null &
 			while :; do sleep 2073600; done

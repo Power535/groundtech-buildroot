@@ -22,7 +22,7 @@ case "$1" in
   start)
     echo "Expanding the root filesystem..."
     resize2fs /dev/mmcblk0p2 &>/dev/null
-    rm /etc/init.d/S23resize_rootfs
+    rm /etc/init.d/S22resize_rootfs
     echo  "Done."
     ;;
   *)

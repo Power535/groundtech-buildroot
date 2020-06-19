@@ -1,0 +1,110 @@
+diff --git a/Source/WebCore/platform/audio/gstreamer/AudioDestinationGStreamer.cpp b/Source/WebCore/platform/audio/gstreamer/AudioDestinationGStreamer.cpp
+index 782d999..e7c522c 100644
+--- a/Source/WebCore/platform/audio/gstreamer/AudioDestinationGStreamer.cpp
++++ b/Source/WebCore/platform/audio/gstreamer/AudioDestinationGStreamer.cpp
+@@ -101,12 +101,25 @@ AudioDestinationGStreamer::AudioDestinationGStreamer(AudioIOCallback& callback,
+ #if PLATFORM(BCM_NEXUS)
+     audioSink = gst_element_factory_make("brcmpcmsink", nullptr);
+ #else
+-    audioSink = gst_element_factory_make("autoaudiosink", nullptr);
++    // Check env for sink name
++    const char* audioSinkName = getenv("GSTREAMER_AUDIO_SINK");
++    if (!audioSinkName) {
++        // Use omxanalogaudiosink as default when no sink name provided
++        audioSinkName = "omxanalogaudiosink";
++    }
++    audioSink = gst_element_factory_make(audioSinkName, nullptr);
+ #endif
+     m_audioSinkAvailable = audioSink;
+     if (!audioSink) {
+-        LOG_ERROR("Failed to create GStreamer autoaudiosink element");
+-        return;
++        LOG_ERROR("Failed to create GStreamer %s element", audioSinkName);
++        // Choose autoaudiosink as the last resort
++        audioSinkName = "autoaudiosink";
++        audioSink = gst_element_factory_make(audioSinkName, nullptr);
++        m_audioSinkAvailable = audioSink;
++        if (!audioSink) {
++            LOG_ERROR("Failed to create GStreamer autoaudiosink element");
++            return;
++        }
+     }
+ 
+ #if (!PLATFORM(BCM_NEXUS))
+@@ -118,7 +131,7 @@ AudioDestinationGStreamer::AudioDestinationGStreamer(AudioIOCallback& callback,
+     // audiosink was loaded correctly.
+     GstStateChangeReturn stateChangeReturn = gst_element_set_state(audioSink.get(), GST_STATE_READY);
+     if (stateChangeReturn == GST_STATE_CHANGE_FAILURE) {
+-        LOG_ERROR("Failed to change autoaudiosink element state");
++        LOG_ERROR("Failed to change %s element state", audioSinkName);
+         gst_element_set_state(audioSink.get(), GST_STATE_NULL);
+         m_audioSinkAvailable = false;
+         return;
+diff --git a/Source/WebCore/platform/audio/gstreamer/AudioSourceProviderGStreamer.cpp b/Source/WebCore/platform/audio/gstreamer/AudioSourceProviderGStreamer.cpp
+index 178c132..2011d75 100644
+--- a/Source/WebCore/platform/audio/gstreamer/AudioSourceProviderGStreamer.cpp
++++ b/Source/WebCore/platform/audio/gstreamer/AudioSourceProviderGStreamer.cpp
+@@ -112,6 +112,22 @@ void AudioSourceProviderGStreamer::configureAudioBin(GstElement* audioBin, GstEl
+ {
+     m_audioSinkBin = audioBin;
+ 
++    const char* audioSinkName = getenv("GSTREAMER_AUDIO_SINK");
++    if (!audioSinkName) {
++        // Use omxanalogaudiosink as default when no sink name provided 
++        audioSinkName = "omxanalogaudiosink";
++    }
++
++    // Test GRefPtr
++    GRefPtr<GstElement> _audioSink;
++    _audioSink = gst_element_factory_make(audioSinkName, nullptr);
++    if (!_audioSink) {
++        // omxanalogaudiosink does not exist
++        // Choose autoaudiosink as the last resort
++        audioSinkName = "autoaudiosink";
++    }
++
++
+     GstElement* audioTee = gst_element_factory_make("tee", "audioTee");
+     GstElement* audioQueue = gst_element_factory_make("queue", nullptr);
+     GstElement* audioConvert = gst_element_factory_make("audioconvert", nullptr);
+@@ -119,7 +135,7 @@ void AudioSourceProviderGStreamer::configureAudioBin(GstElement* audioBin, GstEl
+     GstElement* audioResample = gst_element_factory_make("audioresample", nullptr);
+     GstElement* audioResample2 = gst_element_factory_make("audioresample", nullptr);
+     GstElement* volumeElement = gst_element_factory_make("volume", "volume");
+-    GstElement* audioSink = gst_element_factory_make("autoaudiosink", nullptr);
++    GstElement* audioSink = gst_element_factory_make(audioSinkName, nullptr);
+ 
+     gst_bin_add_many(GST_BIN(m_audioSinkBin.get()), audioTee, audioQueue, audioConvert, audioResample, volumeElement, audioConvert2, audioResample2, audioSink, nullptr);
+ 
+diff --git a/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp b/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp
+index 5ae94a4..2a6c814 100644
+--- a/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp
++++ b/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp
+@@ -2199,10 +2199,24 @@ void MediaPlayerPrivateGStreamer::setPreload(MediaPlayer::Preload preload)
+ 
+ GstElement* MediaPlayerPrivateGStreamer::createAudioSink()
+ {
+-    m_autoAudioSink = gst_element_factory_make("autoaudiosink", nullptr);
++
++    const char* audioSinkName = getenv("GSTREAMER_AUDIO_SINK");
++    if (!audioSinkName) {
++        // Use omxanalogaudiosink as default when no sink name provided 
++        audioSinkName = "omxanalogaudiosink";
++    }
++
++    m_autoAudioSink = gst_element_factory_make(audioSinkName, nullptr);
++
+     if (!m_autoAudioSink) {
+-        GST_WARNING("GStreamer's autoaudiosink not found. Please check your gst-plugins-good installation");
+-        return nullptr;
++        // omxanalogaudiosink does not exist
++        // Choose autoaudiosink as the last resort
++        audioSinkName = "autoaudiosink";
++        m_autoAudioSink = gst_element_factory_make(audioSinkName, nullptr);
++        if (!m_autoAudioSink) {
++            GST_WARNING("GStreamer's %s not found. Please check your gst-plugins-good installation", audioSinkName);
++            return nullptr;
++        }
+     }
+ 
+     g_signal_connect_swapped(m_autoAudioSink.get(), "child-added", G_CALLBACK(setAudioStreamPropertiesCallback), this);

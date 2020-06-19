@@ -305,6 +305,8 @@ define WPEWEBKIT_APPLY_LOCAL_PATCHES
  # this platform needs to run this gstreamer version parallel
  # to an older version.
  $(APPLY_PATCHES) $(@D) $(WPEWEBKIT_PKGDIR) 9999-link_to_wpe_gstreamer.patch.conditional
+ # Makes "omxanalogaudiosink" default instead of "autoaudiosink" and introduces GSTREAMER_AUDIO_SINK environment variable
+ $(APPLY_PATCHES) $(@D) $(WPEWEBKIT_PKGDIR) 999_gstream_disable_auto_sink.patch
 endef
 WPEWEBKIT_POST_PATCH_HOOKS += WPEWEBKIT_APPLY_LOCAL_PATCHES
 endif
